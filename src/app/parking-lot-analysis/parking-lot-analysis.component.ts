@@ -67,7 +67,7 @@ previousOrder = [];
     let numb = ((this.page_number-1)*10)+index;
     let slot = this.filterdParkingSlots[numb].slot;
     this.parkingService.removeCar(slot);
-    let tempPageno =0 ;
+    let tempPageno =1 ;
     if(this.page_number>1){
       tempPageno = this.page_number;
     }
