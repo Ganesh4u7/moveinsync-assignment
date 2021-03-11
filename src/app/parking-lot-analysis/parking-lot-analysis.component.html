@@ -167,10 +167,15 @@
               <div class="text-center mt-5" *ngIf="paginationSlots.length == 0">
                 <h6 class="text-danger">No records found.</h6>
               </div>
-              <div >
+              <div class="text-center">
+                <p>page {{page_number  }} of {{numbPages()}}</p>
+              </div>
+              <div class="col" >
+                
                 <div class="float-left">
                   <button class="btn btn-success" (click)="previous()">Previous</button>
                 </div>
+                
                 <div class="float-right">
                   <button class="btn btn-success" (click)="next()">Next</button>
                 </div>

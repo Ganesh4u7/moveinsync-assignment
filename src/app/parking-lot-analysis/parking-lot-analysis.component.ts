@@ -29,6 +29,9 @@ parkCarStatus=false;
 
 page_number =1;
 
+
+tempSortType=null;
+
 sortState =false;
 sortTypeName =null;
 sortTypeMode =null;
@@ -60,8 +63,13 @@ previousOrder = [];
   }
 
   deleteParkedCar(index){
-    let slot = this.filterdParkingSlots[index].slot;
+    let numb = ((this.page_number-1)*10)+index;
+    let slot = this.filterdParkingSlots[numb].slot;
     this.parkingService.removeCar(slot);
+    let tempPageno;
+    if(this.page_number>1){
+      tempPageno = this.page_number;
+    }
     this.getData();
     let carNo = this.searchForm.value.carNo.toUpperCase();
     let color = this.searchForm.value.color;
@@ -80,6 +88,17 @@ previousOrder = [];
       this.paginationSlots = this.filterdParkingSlots.slice(0,10);
       this.page_number =1;
       this.sortTypeName = null;
+    }
+    if(this.sortState  ){
+      this.page_number = tempPageno;
+      this.sortParkedCars(this.tempSortType);
+    }
+    if(tempPageno >1){
+      if((tempPageno)*10 <this.filterdParkingSlots.length){
+        let page_size=10;
+        this.page_number =tempPageno;
+        this.paginationSlots = this.filterdParkingSlots.slice((tempPageno - 1) * page_size, tempPageno * page_size);
+        }
     }
   }
 
@@ -147,6 +166,7 @@ previousOrder = [];
   sortParkedCars(sortType){
 
     if(sortType =='carNo'){
+      this.tempSortType = sortType;
       if(this.sortTypeName!= 'carNo'){
         this.sortTypeMode = 0;
         this.previousOrder = [...this.filterdParkingSlots];
@@ -182,6 +202,7 @@ previousOrder = [];
     }
 
     else if(sortType == 'color'){
+      this.tempSortType = sortType;
       if(this.sortTypeName != 'color'){
         this.sortTypeMode = 0;
         this.previousOrder = [...this.filterdParkingSlots];
@@ -218,6 +239,7 @@ previousOrder = [];
     }
 
     else if(sortType == "slot"){
+      this.tempSortType = sortType;
       if(this.sortTypeName!= 'slot'){
         this.sortTypeMode = 0;
         this.previousOrder = [...this.filterdParkingSlots];
@@ -244,6 +266,7 @@ previousOrder = [];
       
     }
     else if( sortType== "date"){
+      this.tempSortType = sortType;
       if(this.sortTypeName!= 'date'){
         this.sortTypeMode = 0;
         this.previousOrder = [...this.filterdParkingSlots];
@@ -304,6 +327,10 @@ previousOrder = [];
     this.sortTypeMode = 0;
     this.sortTypeName =name;
     this.sortState =false;
+  }
+  numbPages(){
+    let temp = this.filterdParkingSlots.length/10;
+    return Math.ceil(temp);
   }
 
 }
