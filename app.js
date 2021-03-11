@@ -19,9 +19,6 @@ let app_init = async () => {
         app.get('/',function(req,res){
            res.sendFile(path.join(__dirname,"./dist/moveinsync/index.html"));
         });
-        app.get('/login',function(req,res){
-          res.sendFile(path.join(__dirname,"./dist/moveinsync/index.html"));
-        });
         app.all('*', function(req, res) {
             res.redirect("/");
           });
