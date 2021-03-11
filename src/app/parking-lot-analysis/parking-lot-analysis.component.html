@@ -19,6 +19,8 @@
          </div>
         
         <div class="col-md-12 mt-3">
+          
+
           <form [formGroup]="searchForm">
             <div class="form-inline float-right ">
               
@@ -236,10 +238,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <div class="float-right text-center mt-3" >
+          <div class=" text-center mt-3" >
             <h6>Total collected Fee : {{totalFees}}</h6>
         </div>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
   
@@ -265,20 +266,22 @@
               </div>
              <div class="form-group">
                 <label for="carColor">Color</label>
-                <select class="form-control mr-3" id="exampleFormControlSelect1"  formControlName="color" required>
-                    <option selected disabled>Choose a colour</option>
+                <select class="form-control mr-3"  formControlName="color" required>
+                  <option  value="default" selected disabled>Choose a colour</option>
                     <option value="blue">blue</option>
                     <option value="black">black</option>
                     <option value="red">Red</option>
                     <option value="white">White</option>
                   </select>
+                  <span class="text-danger" *ngIf="!parkCarForm.controls['color'].valid && parkCarForm.controls['color']?.touched">Please select a Color</span>
              </div>
              <div class="form-group">
                 <label for="carColor">Slot</label>
-                <select class="form-control mr-3" id="exampleFormControlSelect1" formControlName="slot" required>
+                <select class="form-control mr-3" formControlName="slot" required>
                     
                     <option *ngFor="let slot of freeSlots;" value={{slot}}>{{slot}}</option>
                   </select>
+                  <span class="text-danger" *ngIf="!parkCarForm.controls['slot'].valid && parkCarForm.controls['slot']?.touched">Please select a Slot</span>
              </div>
              <div class="text-center">
                  <button class="btn btn-success" [disabled]="parkCarForm.invalid" (click)="parkACar()">Park Car</button>
@@ -293,7 +296,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
         </div>
       </div>
       

@@ -28,6 +28,7 @@ parkCarStatus=false;
 
 
 page_number =1;
+page_size=10;
 
 
 tempSortType=null;
@@ -66,7 +67,7 @@ previousOrder = [];
     let numb = ((this.page_number-1)*10)+index;
     let slot = this.filterdParkingSlots[numb].slot;
     this.parkingService.removeCar(slot);
-    let tempPageno;
+    let tempPageno =0 ;
     if(this.page_number>1){
       tempPageno = this.page_number;
     }
@@ -89,16 +90,38 @@ previousOrder = [];
       this.page_number =1;
       this.sortTypeName = null;
     }
-    if(this.sortState  ){
+    if(this.sortState ){
+      console.log(this.sortTypeMode,this.sortTypeName);
       this.page_number = tempPageno;
-      this.sortParkedCars(this.tempSortType);
+      if(this.sortTypeMode == 1){
+        this.sortTypeMode =0;
+        this.sortTypeName = this.tempSortType;
+        this.sortParkedCars(this.tempSortType);
+      }
+      else if(this.sortTypeMode == -1){
+        this.sortTypeMode = 1;
+        this.sortTypeName = this.tempSortType;
+        this.sortParkedCars(this.tempSortType);
+      }
+      else if(this.sortTypeMode == 0){
+        this.sortTypeMode = -1;
+        this.sortTypeName = this.tempSortType;
+        this.sortParkedCars(this.tempSortType);
+      }
+      
     }
     if(tempPageno >1){
-      if((tempPageno)*10 <this.filterdParkingSlots.length){
-        let page_size=10;
+      console.log(tempPageno);
+      if((tempPageno*this.page_size) <=this.filterdParkingSlots.length){
+        let page_size=this.page_size;
         this.page_number =tempPageno;
         this.paginationSlots = this.filterdParkingSlots.slice((tempPageno - 1) * page_size, tempPageno * page_size);
         }
+       else if((tempPageno*this.page_size) >=this.filterdParkingSlots.length){
+          let page_size=this.page_size;
+          this.page_number =tempPageno;
+          this.paginationSlots = this.filterdParkingSlots.slice((tempPageno - 1) * page_size, tempPageno * page_size);
+          }
     }
   }
 
@@ -308,22 +331,22 @@ previousOrder = [];
   }
 
   ascending(name){
-      this.paginationSlots = this.filterdParkingSlots.slice(0,10);
+      this.paginationSlots = this.filterdParkingSlots.slice((this.page_number - 1) * 10, this.page_number * 10);
         this.sortTypeMode =1;
         this.sortTypeName =name;
         this.sortState =true;
-        this.page_number =1;
+        // this.page_number =1;
   }
   descending(name){
-        this.paginationSlots = this.filterdParkingSlots.slice(0,10);
+        this.paginationSlots = this.filterdParkingSlots.slice((this.page_number - 1) * 10, this.page_number * 10);
         this.sortTypeMode =-1;
         this.sortTypeName =name;
         this.sortState =true;
-        this.page_number =1;
+        // this.page_number =1;
   }
   noSort(name){
     this.filterdParkingSlots =[...this.previousOrder];
-    this.paginationSlots = this.filterdParkingSlots.slice(0,10);
+    this.paginationSlots = this.filterdParkingSlots.slice((this.page_number - 1) * 10, this.page_number * 10);
     this.sortTypeMode = 0;
     this.sortTypeName =name;
     this.sortState =false;

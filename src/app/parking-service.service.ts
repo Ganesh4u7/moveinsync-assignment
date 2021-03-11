@@ -46,7 +46,7 @@ export class ParkingServiceService {
 
   removeCar(index){
     let pos = this.parkingSlots.map(function(e) { return parseInt(e.slot); }).indexOf(parseInt(index));
-    console.log(pos);
+    // console.log(pos);
 
     let removedCar = {
           ...this.parkingSlots[pos],
@@ -57,18 +57,18 @@ export class ParkingServiceService {
     let slot = parseInt(removedCar.slot)    
     this.parkingAnalysis.push(removedCar);    
     this.freeSlots.push(slot);
-    console.log(this.freeSlots);
+    // console.log(this.freeSlots);
     this.freeSlots.sort((a, b) => {
       if(a < b) return -1;
       else if(a > b) return 1;
       return 0;
   });
-    console.log(this.freeSlots);
+    // console.log(this.freeSlots);
     this.parkingSlots.splice(pos,1);
     this.parkedCars = this.parkingSlots.length;
     this.totalFees +=20;
 
-    console.log(this.parkingAnalysis);
+    // console.log(this.parkingAnalysis);
   }
 
   parkCar(data){
@@ -78,7 +78,7 @@ export class ParkingServiceService {
       
 
       let slotIndex = this.freeSlots.indexOf(slot)
-      console.log(slotIndex);
+      // console.log(slotIndex);
       this.freeSlots.splice(slotIndex,1);
       this.parkedCars = this.parkingSlots.length;
     }
