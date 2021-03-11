@@ -184,6 +184,11 @@ previousOrder = [];
       carNo: '',
       color:'default'
     });
+    this.sortTypeName=null;
+    this.sortTypeMode=null;
+    this.page_number=1;
+    this.tempSortType = null;
+    this.sortState = false;
   }
 
   sortParkedCars(sortType){
