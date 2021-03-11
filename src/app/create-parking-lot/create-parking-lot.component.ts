@@ -38,7 +38,7 @@ errMessage;
       this.errMessage="Please enter valid numbers between 1-10000";
     }
    else if(total>=parked){
-      console.log(total,parked);
+      // console.log(total,parked);
       this.errBol=false;
 
       this.parkingService.totalSlots = total;

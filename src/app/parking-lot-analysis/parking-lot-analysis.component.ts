@@ -76,7 +76,7 @@ previousOrder = [];
     let color = this.searchForm.value.color;
     if(carNo != null || carNo!=''|| color!='default'){
       this.filterdParkingSlots= this.parkingSlots.filter( (car)=>{
-        console.log(car);
+        // console.log(car);
         if(color == 'default' && car.carNo.includes(carNo) ){
           
           return car;
@@ -91,7 +91,7 @@ previousOrder = [];
       this.sortTypeName = null;
     }
     if(this.sortState ){
-      console.log(this.sortTypeMode,this.sortTypeName);
+      // console.log(this.sortTypeMode,this.sortTypeName);
       this.page_number = tempPageno;
       if(this.sortTypeMode == 1){
         this.sortTypeMode =0;
@@ -111,7 +111,7 @@ previousOrder = [];
       
     }
     if(tempPageno >1){
-      console.log(tempPageno);
+      // console.log(tempPageno);
       if((tempPageno*this.page_size) <=this.filterdParkingSlots.length){
         let page_size=this.page_size;
         this.page_number =tempPageno;
@@ -132,7 +132,7 @@ previousOrder = [];
       color:this.parkCarForm.value.color,
       time: new Date()
     }
-    console.log(carDetails.slot);
+    // console.log(carDetails.slot);
 
     this.parkingService.parkCar(carDetails);
     this.getData();
@@ -148,7 +148,7 @@ previousOrder = [];
   getData(){
     this.parkingSlots = [...this.parkingService.parkingSlots];
     this.filterdParkingSlots =[...this.parkingService.parkingSlots];
-    console.log(this.filterdParkingSlots.length);
+    // console.log(this.filterdParkingSlots.length);
     this.paginationSlots = this.filterdParkingSlots.slice(0,10);
     this.totalFees = this.parkingService.totalFees;
     this.parkedCars = this.parkingService.parkedCars;
@@ -163,7 +163,7 @@ previousOrder = [];
     let color = this.searchForm.value.color;
 
      this.filterdParkingSlots= this.parkingSlots.filter( (car)=>{
-      console.log(car);
+      // console.log(car);
       if(color == 'default' && car.carNo.includes(carNo) ){
         
         return car;
@@ -236,7 +236,7 @@ previousOrder = [];
         this.previousOrder = [...this.filterdParkingSlots];
       }
       if(this.sortTypeMode == null || this.sortTypeMode == 0){
-        console.log('hiii');
+        // console.log('hiii');
         this.filterdParkingSlots.sort((a, b) => {
           let fa = a.color.toLowerCase(),
               fb = b.color.toLowerCase();
@@ -249,7 +249,7 @@ previousOrder = [];
 
       }
       else if(this.sortTypeMode == 1){
-        console.log('came here');
+        // console.log('came here');
         this.filterdParkingSlots.sort((a, b) => {
           let fa = a.color.toLowerCase(),
               fb = b.color.toLowerCase();
