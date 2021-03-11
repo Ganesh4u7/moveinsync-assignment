@@ -7,11 +7,6 @@ const port = normalizePort(process.env.PORT || '3000');
 
 let app_init = async () => {
 
-      
-
-
-
-        
 
         const app = express();
 

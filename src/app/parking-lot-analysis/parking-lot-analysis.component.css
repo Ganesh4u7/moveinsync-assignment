@@ -18,5 +18,5 @@ input{
 
 .logsBody{
     max-height: 50vh;
-    overflow: scroll;
+    overflow-y: scroll;
 }
