@@ -1,0 +1,296 @@
+<div class="bg-info mb-5 text-center p-3">
+    <h4 style="color: white;">AUTOMATED PARKING LOT SYSTEM</h4>
+ </div>
+
+ <div class="container-fluid col-md-12 col-12">
+     <div class="row">
+         <div class="col-md-6">
+            <div class="float-left ">
+                <p>Total parking slots - <span class="text-danger">{{totalSlots}}</span></p>
+                <p>Available parking slots - <span class="text-danger">{{totalSlots-parkedCars}}</span></p>
+            </div>
+         </div>
+
+         <div class="col-md-6">
+            <div class=" float-right">
+                <button class="btn btn-success mr-2" data-toggle="modal" data-target="#queryData" (click)="getData()">Query Data</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#parkCar" (click)="getData()">Park a Car</button>
+            </div>
+         </div>
+        
+        <div class="col-md-12 mt-3">
+          <form [formGroup]="searchForm">
+            <div class="form-inline float-right ">
+              
+                <div class="form-group ">
+                    <input class="form-control mr-3" placeholder="TYPE REG NO." formControlName="carNo">
+                </div>
+                <div class="form-group ">
+                    <select class="form-control mr-3"  formControlName="color">
+                        <option  value="default" selected disabled>Choose a colour</option>
+                        <option value="blue">blue</option>
+                        <option value="black">black</option>
+                        <option value="red">Red</option>
+                        <option value="white">White</option>
+                      </select>
+                </div>
+              
+                <div class="form-group">
+                    <button class="btn btn-info mr-2" (click)="searchCar()">Search</button>
+                     <button class="btn btn-secondary" (click)="reset()">Reset</button>
+                </div>
+                
+            </div>
+          </form>
+        </div>
+     
+        <div class="col-md-12 mt-4 mb-4">
+            <table class="table table-bordered text-center">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">
+                      <div class="text-center">
+                        <p>#</p>
+                      </div>
+                    </th>
+                    
+                    <th scope="col" (click)="sortParkedCars('carNo')" >
+                      <div class="arrows" *ngIf="!sortState || (sortState && sortTypeName !== 'carNo' )">
+                        <p class="d-inline-block">Car No </p>
+                          <div class="d-inline-block mt-2">
+                            <img id="arrow-up" style="margin-top: 3px;"  src="../../assets/arrow-up.png">
+                            <img id="arrow-down"  src="../../assets/arrow-down.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'carNo' && sortTypeMode == 1 ">
+                        <p class="d-inline-block">Car No </p>
+                          <div class="d-inline-block mt-2">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-down.png">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'carNo' && sortTypeMode == -1">
+                        <p class="d-inline-block">Car No </p>
+                          <div class="d-inline-block mt-2">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-down.png">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+
+                      
+                      
+                    </th>
+                    <th scope="col" (click)="sortParkedCars('color')" >
+                      <div class="arrows" *ngIf="!sortState || (sortState && sortTypeName !== 'color' )" >
+                        <p class="d-inline-block">Color </p>
+                          <div class="d-inline-block mt-2">
+                            <img id="arrow-up" style="margin-top: 3px;"  src="../../assets/arrow-up.png">
+                            <img id="arrow-down"  src="../../assets/arrow-down.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'color' && sortTypeMode == 1 ">
+                        <p class="d-inline-block">Color </p>
+                          <div class="d-inline-block mt-2">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-down.png">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'color' && sortTypeMode == -1">
+                        <p class="d-inline-block">Color</p>
+                          <div class="d-inline-block mt-2">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-down.png">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                    </th>
+                    <th scope="col" (click)="sortParkedCars('slot')" >
+                      <div class="arrows" *ngIf="!sortState || (sortState && sortTypeName !== 'slot' )">
+                        <p class="d-inline-block">Slot </p>
+                          <div class="d-inline-block mt-2">
+                            <img id="arrow-up" style="margin-top: 3px;"  src="../../assets/arrow-up.png">
+                            <img id="arrow-down"  src="../../assets/arrow-down.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'slot' && sortTypeMode == 1 ">
+                        <p class="d-inline-block">Slot </p>
+                          <div class="d-inline-block mt-2">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-down.png">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'slot' && sortTypeMode == -1">
+                        <p class="d-inline-block">Slot </p>
+                          <div class="d-inline-block mt-2">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-down.png">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                    </th>
+                    <th scope="col" (click)="sortParkedCars('date')" >
+                      <div class="arrows" *ngIf="!sortState || (sortState && sortTypeName !== 'date' )">
+                        <p class="d-inline-block">Date Time </p>
+                          <div class="d-inline-block mt-2">
+                            <img id="arrow-up" style="margin-top: 3px;"  src="../../assets/arrow-up.png">
+                            <img id="arrow-down"  src="../../assets/arrow-down.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'date' && sortTypeMode == 1 ">
+                        <p class="d-inline-block">Date Time </p>
+                          <div class="d-inline-block mt-2">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-down.png">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                      <div class="arrows " *ngIf="sortState && sortTypeName == 'date' && sortTypeMode == -1">
+                        <p class="d-inline-block">Date Time </p>
+                          <div class="d-inline-block mt-2">
+                            <img  style="visibility: hidden;" src="../../assets/arrow-down.png">
+                            <img style="margin-top: 3px;"  src="../../assets/arrow-up.png"> 
+                          </div>
+                      </div>
+                    </th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let car of paginationSlots;let i=index;">
+                  <tr>
+                    <th scope="row">{{((page_number-1)*10)+i+1}}</th>
+                    <td>{{car.carNo}}</td>
+                    <td>{{car.color}}</td>
+                    <td>{{car.slot}}</td>
+                    <td>{{car.time | date: 'dd MMM yyyy, hh:mm a'}}</td>
+                    <td><button class="btn btn-warning" (click)="deleteParkedCar(i)">Remove</button></td>
+                  </tr>
+                </tbody>
+                
+              </table>
+              <div class="text-center mt-5" *ngIf="paginationSlots.length == 0">
+                <h6 class="text-danger">No records found.</h6>
+              </div>
+              <div >
+                <div class="float-left">
+                  <button class="btn btn-success" (click)="previous()">Previous</button>
+                </div>
+                <div class="float-right">
+                  <button class="btn btn-success" (click)="next()">Next</button>
+                </div>
+              </div>
+        </div>
+     </div>
+    
+ </div>
+
+
+ <div id="queryData" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content ">
+        <div class="modal-header ">
+          
+          <h4 class="modal-title ">Parking Analysis</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body logsBody">
+          <div *ngIf="parkingLogs.length > 0">
+          <div class="p-2" *ngFor="let car of parkingLogs;let i=index;" >
+             <div class="bg-light mt-2 p-2" >
+              <table>
+                  <tbody>
+                      <tr>
+                          <th>Reg no</th>
+                          <td>: {{car.carNo}}</td>
+                      </tr>
+                      <tr>
+                        <th>Color</th>
+                        <td>: {{car.color}}</td>
+                    </tr>
+                    <tr>
+                        <th>In Time</th>
+                        <td>: {{car.time| date: 'dd MMM yyyy, hh:mm a'}}</td>
+                    </tr>
+                    <tr>
+                        <th>Out time</th>
+                        <td>: {{car.outTime| date: 'dd MMM yyyy, hh:mm a'}}</td>
+                    </tr>
+                    <tr>
+                        <th>fee</th>
+                        <td>: {{car.fee}}</td>
+                    </tr>
+                  </tbody>
+                  
+
+              </table>
+            </div> 
+                
+            </div>
+            
+          </div>
+          <div *ngIf="parkingLogs.length == 0">
+            <h6 class="text-danger"> No logs created yet.</h6>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="float-right text-center mt-3" >
+            <h6>Total collected Fee : {{totalFees}}</h6>
+        </div>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+  <div class="modal fade" id="parkCar" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Park a Car</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="parkCarForm" *ngIf="(totalSlots-parkedCars) > 0">
+            <div class="form-group">
+                <label for="regNo"> Car Reg No</label>
+                <input class="form-control" style="text-transform: uppercase" type="text" pattern="^[A-Z|a-z]{2}[-][0-9]{1,2}[-][A-Z|a-z]{1,2}[-][0-9]{3,4}$" required id="regNo" formControlName="carNo">
+             </div>
+             <div class="form-group">
+                <label for="carColor">Color</label>
+                <select class="form-control mr-3" id="exampleFormControlSelect1"  formControlName="color" required>
+                    <option selected disabled>Choose a colour</option>
+                    <option value="blue">blue</option>
+                    <option value="black">black</option>
+                    <option value="red">Red</option>
+                    <option value="white">White</option>
+                  </select>
+             </div>
+             <div class="form-group">
+                <label for="carColor">Slot</label>
+                <select class="form-control mr-3" id="exampleFormControlSelect1" formControlName="slot" required>
+                    
+                    <option *ngFor="let slot of freeSlots;" value={{slot}}>{{slot}}</option>
+                  </select>
+             </div>
+             <div class="text-center">
+                 <button class="btn btn-success" [disabled]="parkCarForm.invalid" (click)="parkACar()">Park Car</button>
+             </div>
+          </form>
+          <div *ngIf="(totalSlots - parkedCars) == 0">
+            <h6 class="text-danger">No free parking slots Available, Please wait till a car exit.</h6>
+          </div>
+          <div *ngIf="parkCarStatus" class="text-center">
+            <h6 class="text-success">Car Parked successfuly.</h6>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ 

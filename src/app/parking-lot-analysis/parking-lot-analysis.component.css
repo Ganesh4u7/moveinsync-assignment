@@ -1,0 +1,22 @@
+.container-fluid {
+    font-size: 14px;
+    
+}
+
+input{
+    font-size: 14px;
+}
+
+.arrows img{
+    
+    height: 9px;
+    width: 9px;
+    display: block;
+    margin-left: 12px;
+}
+
+
+.logsBody{
+    max-height: 50vh;
+    overflow: scroll;
+}
