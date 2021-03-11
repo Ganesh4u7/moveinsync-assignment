@@ -255,7 +255,7 @@
           <form [formGroup]="parkCarForm" *ngIf="(totalSlots-parkedCars) > 0">
             <div class="form-group">
                 <label for="regNo"> Car Reg No</label>
-                <input class="form-control" style="text-transform: uppercase" type="text" pattern="^[A-Z|a-z]{2}[-][0-9]{1,2}[-][A-Z|a-z]{1,2}[-][0-9]{3,4}$" required id="regNo" formControlName="carNo">
+                <input class="form-control" style="text-transform: uppercase" placeholder="Format AP-31-AB-1234" type="text" pattern="^[A-Z|a-z]{2}[-][0-9]{1,2}[-][A-Z|a-z]{1,2}[-][0-9]{3,4}$" required id="regNo" formControlName="carNo">
              </div>
              <div class="form-group">
                 <label for="carColor">Color</label>
