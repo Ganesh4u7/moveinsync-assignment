@@ -63,6 +63,24 @@ previousOrder = [];
     let slot = this.filterdParkingSlots[index].slot;
     this.parkingService.removeCar(slot);
     this.getData();
+    let carNo = this.searchForm.value.carNo.toUpperCase();
+    let color = this.searchForm.value.color;
+    if(carNo != null || carNo!=''|| color!='default'){
+      this.filterdParkingSlots= this.parkingSlots.filter( (car)=>{
+        console.log(car);
+        if(color == 'default' && car.carNo.includes(carNo) ){
+          
+          return car;
+        }
+        else if(car.carNo.includes(carNo) && car.color == color){
+          return car;
+        }
+      });
+      
+      this.paginationSlots = this.filterdParkingSlots.slice(0,10);
+      this.page_number =1;
+      this.sortTypeName = null;
+    }
   }
 
   parkACar(){
